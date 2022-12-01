@@ -21,13 +21,13 @@ class SNTP:
     def analise_packet(self, received_packet):
         self.transmit_time = struct.unpack(self.HEADER_FORMAT, received_packet)[10]
 
-    def get_server_packet(self):
+    def get_server_packet(self, hora_server):
         return struct.pack(self.HEADER_FORMAT, self.FIRST_OCTET,
                            self.STRATUM, 0, 0, 0, 0, b'', 0,
                            self.transmit_time, self.received_time,
-                           self.get_wrong_time(self.time_delta))
+                           self.get_wrong_time(self.time_delta, hora_server))
 
-    def get_wrong_time(self, time_delta=0):
-        now = time.time() + SEVENTY_YEARS_IN_SECONDS
+    def get_wrong_time(self, time_delta=0, hora_server=time.time()):
+        now = hora_server
         wrong_time = now + time_delta
         return int(Decimal(wrong_time) * BITE_OFFSET)
