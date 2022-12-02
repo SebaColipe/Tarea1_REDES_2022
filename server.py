@@ -1,4 +1,3 @@
-import argparse
 import socket
 from packet import SNTP
 from config import PORT, IP, BUFFER_SIZE, NTP_SERVER, SEVENTY_YEARS_IN_SECONDS
@@ -14,7 +13,7 @@ class Server:
         self.hora = 0
         print(f'Server start on {IP}:{PORT}')
     
-    def consulta_hora(self):
+    def check_time(self):
         client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         data = SNTP.CLIENT_REQUEST.encode('utf-8')
         client.sendto(data, (self.ntp_server, PORT))
@@ -28,7 +27,7 @@ class Server:
     def run(self):
         while True:
             t1 = time.time()
-            self.consulta_hora()
+            self.check_time()
             received_packet, address = self.server.recvfrom(BUFFER_SIZE)
             self.delta = time.time()-t1
             sntp = SNTP(self.delta)

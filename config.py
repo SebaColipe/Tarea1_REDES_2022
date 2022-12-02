@@ -4,3 +4,4 @@ SEVENTY_YEARS_IN_SECONDS = 2208988800
 BITE_OFFSET = 2 ** 32
 BUFFER_SIZE = 4096
 NTP_SERVER = '2.cl.pool.ntp.org'
+NTP_UBUNTU = '0.ubuntu.pool.ntp.org'
